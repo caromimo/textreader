@@ -1,7 +1,9 @@
 var http = require('http');
-//var path = require('path');
-http.createServer(function (request, response) {
-//var lookup = path.basename(decodeURI(request.url));
-response.writeHead(200, {'Content-Type':'text/html'});
-response.end("je t'aime!");
-}).listen(2231);
+var express = require ('express');
+var app = express();
+http.createServer(app).listen(2222, function() { 
+  console.log("S.V.P. veuillez patienter... la vie est belle :)");
+});
+app.get('/', function (request, response) {
+  response.send("Bonjour!");
+});
