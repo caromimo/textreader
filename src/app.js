@@ -1,8 +1,10 @@
 var express = require('express');
 var app = express();
+app.use(express.bodyParser());
 
-app.get('/', function (request, response) {
-  response.send("Bonjour!");
+app.put('/', function (request, response) {
+  response.send(request.body.foo);
 });
+
 
 module.exports = app;

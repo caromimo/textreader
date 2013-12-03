@@ -19,10 +19,10 @@ describe('textreader', function(){
   });
 
   it('responds to /', function(done){
-      request.get("http://localhost:3333", function(error, response, body){
-        expect(body).toEqual('Bonjour!');
-        done();
-      });
+    request.put({url: "http://localhost:3333", form: {"foo": "bar" }}, function(error, response, body){
+      expect(body).toEqual('bar');
+      done();
+    });
   });
 
 });
