@@ -13,7 +13,7 @@
     "url": "https://github.com/caromimo/textreader"
   },
   "dependencies": {
-    "express":"*", 
+    "express":"*",
     "jade":"*"
   },
   "devDependencies": {
@@ -21,7 +21,8 @@
     "grunt": "*",
     "grunt-contrib-jshint": "*",
     "grunt-jasmine-node": "*",
-    "grunt-contrib-watch": "*"
+    "grunt-contrib-watch": "*",
+    "request": "*"
   },
   "bundledDependencies": [],
   "license": "MIT",
