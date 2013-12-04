@@ -23,7 +23,8 @@
     "grunt-contrib-jshint": "*",
     "grunt-jasmine-node": "*",
     "grunt-contrib-watch": "*",
-    "request": "*"
+    "request": "*",
+    "tmp": "*"
   },
   "bundledDependencies": [],
   "license": "MIT",
