@@ -19,8 +19,11 @@ describe('textreader', function(){
   });
 
   it('responds to /', function(done){
-    request.put({url: "http://localhost:3333", form: {"foo": "bar" }}, function(error, response, body){
-      expect(body).toEqual('bar');
+    request.get({url: "http://localhost:3333"}, function(error, response, body){
+      // there is no decernable way to test for headers here even though they
+      // are definitely being sent. The body is just binary data so I guess all
+      // that is left is the response code:
+      expect(response.statusCode).toEqual(200);
       done();
     });
   });
