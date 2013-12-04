@@ -2,21 +2,21 @@ var exec = require('child_process').exec;
 
 describe('the environment', function(){
 
-  it('can find espeak', function(done){
+  it('Le logiciel eSpeak est installé', function(done){
     exec('espeak -h', function(error, stdout, stderr){
       expect(stdout).toMatch(/eSpeak/);
       done();
     });
   });
 
-  it('can find mbrola', function(done){
+  it('Le logiciel Mbrola est installé', function(done){
     exec('mbrola -h', function(error, stdout, stderr){
-      expect(stdout).toMatch(/USAGE/);
+      expect(stdout).toMatch(/mbrola/);
       done();
     });
   });
 
-  it('can find lame', function(done){
+  it('Le logiciel Lame est installé', function(done){
     exec('lame -h', function(error, stdout, stderr){
       // programs that execute successfully return
       // 0 as their exit code, and any other number
@@ -24,7 +24,7 @@ describe('the environment', function(){
       // lame -h returns an exit code of 1 for some
       // reason, so node puts the output in the error
       // variable. Grrr. So... what's the word? LAME.
-      expect(error).toMatch(/LAME/);
+      expect(error).toMatch(/lame/);
       done();
     });
   });
