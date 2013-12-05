@@ -9,13 +9,6 @@ describe('the environment', function(){
     });
   });
 
-  it('Le logiciel Mbrola est installé', function(done){
-    exec('mbrola -h', function(error, stdout, stderr){
-      expect(stdout).toMatch(/mbrola/);
-      done();
-    });
-  });
-
   it('Le logiciel Lame est installé', function(done){
     exec('lame -h', function(error, stdout, stderr){
       // programs that execute successfully return
