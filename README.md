@@ -23,19 +23,15 @@ After that you should be able to run the server with:
 
 ###Windows
 
-You will need to download the Lame encoder from here:
-
-    http://www.rarewares.org/mp3-lame-bundle.php
+You will need to download the Lame encoder from [here](http://www.rarewares.org/mp3-lame-bundle.php)
 
 Extract the contents and ensure that lame.exe is available in the PATH.
 
-The same will need to happen for Espeak.
+The same will need to happen for [Espeak](http://espeak.sourceforge.net/download.html).
 
 When extracting Espeak you will notice there is an espeak-data/mbrola folder
 inside.  You will need to download the Mbrola fr1 voice and put it in that
-folder.  You can download the Mbrola fr1 voice (and others) from here:
-
-    http://tcts.fpms.ac.be/synthesis/mbrola/mbrcopybin.html
+folder.  You can download the Mbrola fr1 voice (and others) from [here](http://tcts.fpms.ac.be/synthesis/mbrola/mbrcopybin.html)
 
 ##Usage:
 
