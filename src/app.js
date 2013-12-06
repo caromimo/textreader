@@ -6,20 +6,36 @@ app.use(express.bodyParser());
 app.get('/vocalization/fr/homme', function (request, response) {
   response.header('Content-Type', 'audio/mpeg');
   response.header('Content-Disposition', 'inline; filename=test.mp3');
-  var exec = require('child_process').exec;
-  var text = request.query.texte;
+  var spawn = require('child_process').spawn;
 
-
-  tmp.tmpName(function _tempNameGenerated(err, tempfile) {
+  tmp.tmpName(function _tempNameGenerated(err, espeakTmpfile) {
     if (err) throw err;
-    // Below espeak takes text and transform it to wav
-    // using the mbrola voice (prefixed with mb-) then
-    // we use lame transforms the raw audio to mp3.
-    var command = 'espeak -v mb-fr1 -w ' + tempfile + ' -a 15 -p 50 -s 130 "' + text + '" | lame -r -m m -b 24 -s 16 ' + tempfile + ' ' + tempfile;
-    exec(command, function (error, stdout, stderr) {
-      response.sendfile(tempfile);
+    var espeak = spawn('espeak', ['-vmb-fr1', '-w' + espeakTmpfile , '-s130', request.query.texte]);
+
+    espeak.on('exit', function(exitCode){
+      tmp.tmpName(function _tempNameGenerated(err, lameTmpfile) {
+        if (err) throw err;
+        // volume normalization with fast replaygain is used by default.
+        var options = ['-r', '-mm', '--silent', '-b24', '-s16', espeakTmpfile, lameTmpfile];
+        var lame = spawn('lame', options);
+
+        lame.on('exit', function(exitCode){
+          response.sendfile(lameTmpfile);
+        });
+
+        lame.stderr.on('data', function(data){
+          console.log("Lame error: " + data);
+        });
+
+      });
     });
+
+    espeak.stderr.on('data', function(data){
+      console.log("Espeak error: " + data);
+    });
+
   });
+
 });
 
 
