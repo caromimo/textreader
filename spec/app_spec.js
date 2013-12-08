@@ -18,8 +18,8 @@ describe('textreader', function(){
     server.close();
   });
 
-  it('responds to /vocalization/fr/homme', function(done){
-    var urllink = "http://localhost:3333/vocalization/fr/homme";
+  it('responds to /vocalization/fr1', function(done){
+    var urllink = "http://localhost:3333/vocalization/fr1";
     request.get({url: urllink }, function(error, response, body){
       // there is no decernable way to test for headers here even though they
       // are definitely being sent. The body is just binary data so I guess all

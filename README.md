@@ -35,7 +35,10 @@ folder.  You can download the Mbrola fr1 voice (and others) from [here](http://t
 
 ##Usage:
 
-    http://localhost:2222/vocalization/fr/homme?texte=Bonjour%20tout%20le%20monde
+    http://localhost:2222/vocalization/fr1?texte=Bonjour%20tout%20le%20monde
+
+fr1 in the URL above refers to the mbrola voice you would like to use to read
+the text. Replace that with any other voice you have installed.
 
 The server will respond with MP3 data.
 
