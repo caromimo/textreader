@@ -10,7 +10,8 @@ app.get('/vocalization/:voix', function (request, response) {
 
   tmp.tmpName(function _tempNameGenerated(err, espeakTmpfile) {
     if (err) throw err;
-    var espeak = spawn('espeak', ['-vmb-' + request.params.voix , '-w' + espeakTmpfile , '-s130', request.query.texte]);
+    var decodedText = decodeURIComponent(request.query.texte);
+    var espeak = spawn('espeak', ['-vmb-' + request.params.voix , '-w' + espeakTmpfile , '-s130', decodedText]);
 
     espeak.on('exit', function(exitCode){
       tmp.tmpName(function _tempNameGenerated(err, lameTmpfile) {
