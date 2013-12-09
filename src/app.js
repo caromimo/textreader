@@ -5,7 +5,6 @@ app.use(express.bodyParser());
 
 app.get('/vocalization/:voix', function (request, response) {
   response.header('Content-Type', 'audio/mpeg');
-  response.header('Content-Disposition', 'inline; filename=test.mp3');
   var spawn = require('child_process').spawn;
 
   tmp.tmpName(function _tempNameGenerated(err, espeakTmpfile) {
