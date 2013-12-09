@@ -3,8 +3,10 @@ var express = require('express');
 var app = express();
 app.use(express.bodyParser());
 
+app.set('view engine', 'jade');
+app.set('views','./views');
+
 app.get('/vocalization/:voix', function (request, response) {
-  response.header('Content-Type', 'audio/mpeg');
   var spawn = require('child_process').spawn;
 
   tmp.tmpName(function _tempNameGenerated(err, espeakTmpfile) {
@@ -14,24 +16,28 @@ app.get('/vocalization/:voix', function (request, response) {
 
     espeak.on('exit', function(exitCode){
       tmp.tmpName(function _tempNameGenerated(err, lameTmpfile) {
-        if (err) throw err;
-        // volume normalization with fast replaygain is used by default.
-        var options = ['-r', '-mm', '--silent', '-b24', '-s16', espeakTmpfile, lameTmpfile];
-        var lame = spawn('lame', options);
+        if(err) throw err;
+        if(exitCode === 0){
+          response.header('Content-Type', 'audio/mpeg');
+          // volume normalization with fast replaygain is used by default.
+          var options = ['-r', '-mm', '--silent', '-b24', '-s16', espeakTmpfile, lameTmpfile];
+          var lame = spawn('lame', options);
 
-        lame.on('exit', function(exitCode){
-          response.sendfile(lameTmpfile);
-        });
+          lame.on('exit', function(exitCode){
+            response.sendfile(lameTmpfile);
+          });
 
-        lame.stderr.on('data', function(data){
-          console.log("Lame error: " + data);
-        });
+          lame.stderr.on('data', function(data){
+            console.log("Lame error: " + data);
+          });
+        };
 
       });
     });
 
     espeak.stderr.on('data', function(data){
-      console.log("Espeak error: " + data);
+      response.status(404);
+      response.render('404', {error: data});
     });
 
   });

@@ -29,5 +29,13 @@ describe('textreader', function(){
     });
   });
 
+  it('renders 404 page when voices are not found', function(done){
+    var urllink = "http://localhost:3333/vocalization/asdf";
+    request.get({url: urllink }, function(error, response, body){
+      expect(response.statusCode).toEqual(404);
+      done();
+    });
+  });
+
 });
 
