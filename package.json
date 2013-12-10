@@ -6,7 +6,10 @@
   "description": "A text to speech server",
   "contributors": ["Mike Williamson <mike@korora.ca>"],
   "bin": {},
-  "scripts": {},
+  "scripts": {
+    "install-windows-service": "winser -i",
+    "uninstall-windows-service": "winser -r"
+  },
   "main": "server.js",
   "repository": {
     "type": "git",
@@ -24,7 +27,8 @@
     "grunt-jasmine-node": "*",
     "grunt-contrib-watch": "*",
     "request": "*",
-    "tmp": "*"
+    "tmp": "*",
+    "winser": "*"
   },
   "bundledDependencies": [],
   "license": "MIT",
