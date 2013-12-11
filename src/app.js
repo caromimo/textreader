@@ -1,3 +1,4 @@
+var fs = require('fs');
 var tmp = require('tmp');
 var express = require('express');
 var util = require('util');
