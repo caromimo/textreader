@@ -1,5 +1,7 @@
+var fs = require('fs-ext');
 var tmp = require('tmp');
 var express = require('express');
+var util = require('util');
 var app = express();
 app.use(express.bodyParser());
 
@@ -18,13 +20,19 @@ app.get('/vocalization/:voix', function (request, response) {
       tmp.tmpName(function _tempNameGenerated(err, lameTmpfile) {
         if(err) throw err;
         if(exitCode === 0){
-          response.header('Content-Type', 'audio/mpeg');
           // volume normalization with fast replaygain is used by default.
-          var options = ['-r', '-mm', '--silent', '-b24', '-s16', espeakTmpfile, lameTmpfile];
+          var options = ['-r', '-mm', '--little-endian', '--silent', '-b128', '-s16', espeakTmpfile, lameTmpfile];
           var lame = spawn('lame', options);
 
           lame.on('exit', function(exitCode){
-            response.sendfile(lameTmpfile);
+            if(err) throw err;
+            var stat = fs.statSync(lameTmpfile);
+            response.header('Content-Type', 'audio/mpeg');
+            response.header('Content-Length', stat.size - 1);
+            // There is a click that appears at the beginning of the audio.
+            // we start reading 1 byte in to avoid it:
+            var readstream = fs.createReadStream(lameTmpfile, {start: 1});
+            readstream.pipe(response);
           });
 
           lame.stderr.on('data', function(data){
