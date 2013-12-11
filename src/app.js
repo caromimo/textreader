@@ -1,4 +1,3 @@
-var fs = require('fs-ext');
 var tmp = require('tmp');
 var express = require('express');
 var util = require('util');
