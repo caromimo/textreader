@@ -14,7 +14,8 @@ app.get('/vocalization/:voix', function (request, response) {
   tmp.tmpName(function _tempNameGenerated(err, espeakTmpfile) {
     if (err) throw err;
     var decodedText = decodeURIComponent(request.query.texte);
-    var espeak = spawn('espeak', ['-vmb-' + request.params.voix , '-w' + espeakTmpfile , '-s130', decodedText]);
+    var wordsPerMin = request.query.wpm || 130;
+    var espeak = spawn('espeak', ['-vmb-' + request.params.voix , '-w' + espeakTmpfile , '-s' + wordsPerMin, decodedText]);
 
     espeak.on('exit', function(exitCode){
       tmp.tmpName(function _tempNameGenerated(err, lameTmpfile) {
