@@ -40,6 +40,17 @@ folder.  You can download the Mbrola fr1 voice (and others) from [here](http://t
 fr1 in the URL above refers to the mbrola voice you would like to use to read
 the text. Replace that with any other voice you have installed.
 
+If you care about the speed of the speech, you can control it with the wpm
+param in the query string. This lets you specify the number of words per minute
+spoken in the resulting audio file.
+
+    http://localhost:2222/vocalization/fr1?texte=Bonjour%20tout%20le%20monde&wpm=200
+
+The URL above will deliver an MP3 with the words "Bonjour tout le monde."
+spoken at 200 words per minute.
+
+
+
 The server will respond with MP3 data.
 
 ## Contributing
